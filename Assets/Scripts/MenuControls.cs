@@ -8,7 +8,7 @@ public class MenuControls : MonoBehaviour
     
     public void PlayPressed()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
     // Update is called once per frame
     public void ExitPressed()

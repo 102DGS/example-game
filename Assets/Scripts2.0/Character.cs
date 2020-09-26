@@ -9,7 +9,7 @@ public class Character : Unit
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
-    private float jumpForce = 15f;
+    private float jumpForce = 1f;
 
     private float dir = 1f;
     new private Rigidbody2D rigidbody;
@@ -43,10 +43,7 @@ public class Character : Unit
 
     private void Update()
     {
-        if (isGrounded)
-        {
-            State = CharState.Idle;
-        }
+        
 
         if (Input.GetButton("Fire1") && Time.time - startBullet > 0.5f)
         {
@@ -72,9 +69,9 @@ public class Character : Unit
 
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        sprite.flipX = direction.x < 0f;
+        sprite.flipX = direction.x > 0f;
 
-        if (isGrounded)
+        if (!isGrounded)
         {
             State = CharState.Run;
         }
@@ -112,10 +109,8 @@ public class Character : Unit
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f);
         isGrounded = colliders.Length > 1;
-        if (!isGrounded)
-        {
-            State = CharState.Jump;
-        }
+        Debug.Log(colliders.Length);
+        
     }
 }
 

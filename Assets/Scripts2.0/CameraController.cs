@@ -22,7 +22,6 @@ public class CameraController : MonoBehaviour
         if (target.position.x > 5f)
         {
             Vector3 position = target.position;
-            position.y = transform.position.y;
             position.z = -10f;
             transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
         }

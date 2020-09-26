@@ -27,7 +27,7 @@ public class UnitController : MonoBehaviour
     void Update()
     {
         if (Input.GetButton("Horizontal")) { RunH(); }
-        if (Input.GetKeyDown(KeyCode.Space)) { Jump(); }
+        if (Input.GetKeyDown(KeyCode.Space)) {  }
         
     }
     void RunH()

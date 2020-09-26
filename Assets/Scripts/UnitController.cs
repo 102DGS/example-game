@@ -45,7 +45,7 @@ public class UnitController : MonoBehaviour
         if (isGrounded)
         {
             Instantiate(myPrefab, transform.position, Quaternion.identity);
-            Vector2 jump = new Vector2(transform.up.x, transform.up.y + 3);
+            Vector2 jump = new Vector2(transform.up.x, transform.up.y + 10);
             rb.AddForce(jump, ForceMode2D.Impulse);
             isGrounded = false;
             Debug.Log("Jump true");

@@ -69,7 +69,7 @@ public class Character : Unit
 
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        sprite.flipX = direction.x > 0f;
+        sprite.flipX = direction.x < 0f;
 
         if (!isGrounded)
         {

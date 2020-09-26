@@ -8,6 +8,8 @@ public class UnitController : MonoBehaviour
     SpriteRenderer sprite;
     Rigidbody2D rb;
     bool isGrounded;
+    [SerializeField]
+    GameObject myPrefab;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,9 +40,11 @@ public class UnitController : MonoBehaviour
     }
     void Jump()
     {
+        
         Debug.Log("Jump");
         if (isGrounded)
         {
+            Instantiate(myPrefab, transform.position, Quaternion.identity);
             Vector2 jump = new Vector2(transform.up.x, transform.up.y + 3);
             rb.AddForce(jump, ForceMode2D.Impulse);
             isGrounded = false;

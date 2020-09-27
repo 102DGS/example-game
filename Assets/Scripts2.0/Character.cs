@@ -21,11 +21,7 @@ public class Character : Unit
 
     private Bullet bullet;
     
-    public CharState State
-    {
-        get { return (CharState)animator.GetInteger("State"); }
-        set { animator.SetInteger("State", (int)value); }
-    }
+   
 
     private void Awake()
     {
@@ -43,12 +39,11 @@ public class Character : Unit
 
     private void Update()
     {
-        
 
-        if (Input.GetButton("Fire1") && Time.time - startBullet > 0.5f)
+        
+        if (Input.GetButtonDown("Fire1"))
         {
-            Shoot();
-            startBullet = Time.time;
+            Punch();
         }
 
         if (Input.GetButton("Horizontal"))
@@ -71,10 +66,7 @@ public class Character : Unit
 
         sprite.flipX = direction.x < 0f;
 
-        if (!isGrounded)
-        {
-            State = CharState.Run;
-        }
+       
     }
 
     private void Jump()
@@ -107,17 +99,31 @@ public class Character : Unit
 
     private void CheckGround()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f);
-        isGrounded = colliders.Length > 1;
-        Debug.Log(colliders.Length);
         
+        isGrounded = checkTag(Physics2D.OverlapCircleAll(transform.position - transform.up * 0.5f , transform.right.x),"Ground");
+    }
+    private void Punch()
+    {
+        var sprite = GetComponentInChildren<SpriteRenderer>();
+        var pos = sprite.flipX ? 1 : -1;
+        var colliders = Physics2D.OverlapCircleAll(transform.position - transform.right * 0.5f * pos, 1f);
+        foreach (var collider in colliders)
+        {
+            if (collider.tag == "Enemy") Destroy(collider.gameObject);
+        }
+        
+    }
+    public bool checkTag(Collider2D[] colliders, string tag)
+    {
+        foreach (var collider in colliders)
+        {
+            if (collider.tag == tag) return true;
+        }
+        return false;
     }
 }
 
 
-public enum CharState
-{
-    Idle,
-    Run,
-    Jump
-}
+
+
+

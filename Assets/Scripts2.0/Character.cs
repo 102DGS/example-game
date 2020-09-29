@@ -61,7 +61,14 @@ public class Character : Unit
     {
         dir = Input.GetAxis("Horizontal");
         Vector3 direction = transform.right * dir;
-
+        if (isGrounded)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        }
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
         sprite.flipX = direction.x < 0f;
@@ -117,7 +124,7 @@ public class Character : Unit
     {
         foreach (var collider in colliders)
         {
-            if (collider.tag == tag) return true;
+            if (collider.tag == tag || collider.tag == "Enemy") return true;
         }
         return false;
     }
